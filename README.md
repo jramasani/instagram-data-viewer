@@ -46,3 +46,33 @@ This tool is designed with privacy as the top priority:
 - No backend required!
 
 ### File Structure 
+
+├── index.html      # Main application
+├── privacy.html    # Privacy policy
+└── README.md       # Documentation
+
+## 🕸️ Network Visualization
+
+The network visualization feature provides an interactive graph of your Instagram connections:
+
+1. **Access**: 
+   - After uploading your data, click the "Interactive Network" card in the stats section
+   - Or click the network icon in the top stats area
+
+2. **Features**:
+   - Interactive zoom and pan
+   - Drag nodes to rearrange
+   - Hover over nodes to see usernames
+   - Color-coded connections:
+     - 🔵 Blue: You (center node)
+     - 🟢 Green: Mutual connections (they follow you, you follow them)
+     - 🟡 Orange: Following only (you follow them)
+     - 🔴 Red: Followers only (they follow you)
+     - 🟣 Purple: Blocked users
+
+3. **Controls**:
+   - Use the zoom slider to adjust zoom level
+   - Use the link distance slider to adjust node spacing
+   - Click and drag nodes to reposition them
+   - Click and drag the background to pan
+   - Close using the × button in the top right 
