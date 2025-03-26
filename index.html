@@ -1017,18 +1017,6 @@
             <div class="control-group">
                 <h4>Controls</h4>
                 <div class="control-item">
-                    <label>
-                        <input type="range" id="networkZoom" min="0.1" max="2" step="0.1" value="1">
-                        Zoom: <span id="zoomValue">1.0</span>x
-                    </label>
-                </div>
-                <div class="control-item">
-                    <label>
-                        <input type="range" id="linkDistance" min="30" max="300" step="10" value="100">
-                        Link Distance: <span id="distanceValue">100</span>
-                    </label>
-                </div>
-                <div class="control-item">
                     <button id="resetLayout" onclick="resetNetworkLayout()">Reset Layout</button>
                     <button id="centerGraph" onclick="centerNetworkGraph()">Center Graph</button>
                 </div>
@@ -1556,8 +1544,6 @@
                 .scaleExtent([0.1, 2])
                 .on('zoom', (event) => {
                     svg.selectAll('g').attr('transform', event.transform);
-                    document.getElementById('zoomValue').textContent = event.transform.k.toFixed(1);
-                    document.getElementById('networkZoom').value = event.transform.k;
                 });
 
             svg.call(zoom);
@@ -1599,35 +1585,6 @@
                     .on('drag', dragged)
                     .on('end', dragended);
             }
-
-            // Control listeners
-            const zoomInput = document.getElementById('networkZoom');
-            const distanceInput = document.getElementById('linkDistance');
-            
-            if (zoomInput) {
-                zoomInput.addEventListener('input', (e) => {
-                    const scale = parseFloat(e.target.value);
-                    svg.call(zoom.transform, d3.zoomIdentity.scale(scale));
-                });
-            }
-
-            if (distanceInput) {
-                distanceInput.addEventListener('input', (e) => {
-                    const distance = parseInt(e.target.value);
-                    document.getElementById('distanceValue').textContent = distance;
-                    simulation.force('link').distance(distance);
-                    simulation.alpha(1).restart();
-                });
-            }
-
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                svg
-                    .attr('width', window.innerWidth)
-                    .attr('height', window.innerHeight);
-                simulation.force('center', d3.forceCenter(window.innerWidth / 2, window.innerHeight / 2));
-                simulation.alpha(1).restart();
-            });
         }
 
         function sortUsers(containerId, sortType, buttonElement) {
