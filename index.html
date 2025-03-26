@@ -473,43 +473,73 @@
 
         .network-controls {
             position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1001;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
             border-radius: 8px;
-            backdrop-filter: blur(10px);
-            width: calc(100% - 40px);
-            max-width: 400px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            max-width: 300px;
+            z-index: 1001;
         }
 
-        @media (min-width: 768px) {
-            .network-controls {
-                position: absolute;
-                top: 20px;
-                left: 20px;
-                transform: none;
-                width: auto;
-            }
+        .network-info {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .network-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        #nodeDetails {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .control-group {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .control-group h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+        }
+
+        .control-item {
+            margin-bottom: 10px;
+        }
+
+        .control-item button {
+            margin-right: 8px;
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .control-item button:hover {
+            background: #f5f5f5;
         }
 
         .network-legend {
-            display: none;
+            font-size: 14px;
         }
 
-        @media (min-width: 768px) {
-            .network-legend {
-                display: block;
-            }
+        .network-legend h4 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            margin: 5px 0;
-            font-size: 12px;
+            margin-bottom: 8px;
         }
 
         .legend-color {
@@ -519,27 +549,22 @@
             margin-right: 8px;
         }
 
-        .close-network {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1001;
+        .legend-count {
+            margin-left: auto;
+            color: #666;
+            font-size: 12px;
         }
 
-        .network-tooltip {
+        .node-tooltip {
             position: absolute;
             background: rgba(0, 0, 0, 0.8);
             color: white;
-            padding: 8px;
+            padding: 8px 12px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 14px;
             pointer-events: none;
             z-index: 1002;
+            max-width: 200px;
         }
 
         @media (max-width: 1200px) {
@@ -794,7 +819,7 @@
                         <i class="fas fa-network-wired"></i>
                     </div>
                     <div class="stat-label">Interactive Network</div>
-                    <div class="stat-trend">Click to explore connections</div>
+                    <div class="stat-trend">Visualize connections</div>
                 </div>
             </div>
 
@@ -985,37 +1010,56 @@
     <div id="networkView" class="network-view">
         <button class="close-network" onclick="hideNetworkView()">×</button>
         <div class="network-controls">
-            <label>
-                <input type="range" id="networkZoom" min="0.1" max="2" step="0.1" value="1">
-                Zoom: <span id="zoomValue">1.0</span>x
-            </label>
-            <br>
-            <label>
-                <input type="range" id="linkDistance" min="30" max="300" step="10" value="100">
-                Link Distance: <span id="distanceValue">100</span>
-            </label>
-        </div>
-        <div class="network-legend">
-            <h4 style="margin: 0 0 10px 0">Network Legend</h4>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #1da1f2"></div>
-                <span>You</span>
+            <div class="network-info">
+                <h3>Selected Node: <span id="selectedNode">None</span></h3>
+                <div id="nodeDetails"></div>
             </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #4caf50"></div>
-                <span>Mutual Connection</span>
+            <div class="control-group">
+                <h4>Controls</h4>
+                <div class="control-item">
+                    <label>
+                        <input type="range" id="networkZoom" min="0.1" max="2" step="0.1" value="1">
+                        Zoom: <span id="zoomValue">1.0</span>x
+                    </label>
+                </div>
+                <div class="control-item">
+                    <label>
+                        <input type="range" id="linkDistance" min="30" max="300" step="10" value="100">
+                        Link Distance: <span id="distanceValue">100</span>
+                    </label>
+                </div>
+                <div class="control-item">
+                    <button id="resetLayout" onclick="resetNetworkLayout()">Reset Layout</button>
+                    <button id="centerGraph" onclick="centerNetworkGraph()">Center Graph</button>
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #ff9800"></div>
-                <span>Following Only</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #e91e63"></div>
-                <span>Follower Only</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background: #f44336"></div>
-                <span>Blocked</span>
+            <div class="network-legend">
+                <h4>Network Legend</h4>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #1da1f2"></div>
+                    <span>You (Center)</span>
+                    <span class="legend-count" id="centerCount">1</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4caf50"></div>
+                    <span>Mutual Connections</span>
+                    <span class="legend-count" id="mutualCount">0</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff9800"></div>
+                    <span>You Follow Them</span>
+                    <span class="legend-count" id="followingCount">0</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e91e63"></div>
+                    <span>They Follow You</span>
+                    <span class="legend-count" id="followerCount">0</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f44336"></div>
+                    <span>Blocked Users</span>
+                    <span class="legend-count" id="blockedCount">0</span>
+                </div>
             </div>
         </div>
     </div>
@@ -1415,24 +1459,96 @@
                 })
                 .call(drag(simulation));
 
-            // Add tooltips
+            // Add node click handler
+            node.on('click', (event, d) => {
+                // Update selected node info
+                document.getElementById('selectedNode').textContent = d.id;
+                const details = document.getElementById('nodeDetails');
+                
+                if (d.id === 'you') {
+                    details.innerHTML = `
+                        <p>Your account (center node)</p>
+                        <p>Connected to ${links.filter(l => l.source.id === 'you' || l.target.id === 'you').length} users</p>
+                    `;
+                } else {
+                    const nodeType = d.type;
+                    const connections = links.filter(l => l.source.id === d.id || l.target.id === d.id);
+                    details.innerHTML = `
+                        <p>Username: ${d.id}</p>
+                        <p>Type: ${nodeType.charAt(0).toUpperCase() + nodeType.slice(1)}</p>
+                        <p>Connections: ${connections.length}</p>
+                    `;
+                }
+            });
+
+            // Update legend counts
+            function updateLegendCounts() {
+                document.getElementById('mutualCount').textContent = nodes.filter(n => n.type === 'mutual').length;
+                document.getElementById('followingCount').textContent = nodes.filter(n => n.type === 'following').length;
+                document.getElementById('followerCount').textContent = nodes.filter(n => n.type === 'follower').length;
+                document.getElementById('blockedCount').textContent = nodes.filter(n => n.type === 'blocked').length;
+            }
+            updateLegendCounts();
+
+            // Add reset and center functions
+            window.resetNetworkLayout = () => {
+                simulation.alpha(1).restart();
+                nodes.forEach(node => {
+                    node.fx = null;
+                    node.fy = null;
+                });
+            };
+
+            window.centerNetworkGraph = () => {
+                const centerX = width / 2;
+                const centerY = height / 2;
+                svg.transition()
+                    .duration(750)
+                    .call(zoom.transform, d3.zoomIdentity.translate(centerX, centerY));
+            };
+
+            // Enhanced tooltip
             const tooltip = d3.select('#networkView')
                 .append('div')
-                .attr('class', 'network-tooltip')
+                .attr('class', 'node-tooltip')
                 .style('opacity', 0);
 
             node.on('mouseover', (event, d) => {
                 tooltip.transition()
                     .duration(200)
                     .style('opacity', .9);
-                tooltip.html(d.id)
+                
+                const connections = links.filter(l => l.source.id === d.id || l.target.id === d.id);
+                const followingCount = connections.filter(l => l.source.id === d.id).length;
+                const followersCount = connections.filter(l => l.target.id === d.id).length;
+                
+                tooltip.html(`
+                    <strong>${d.id}</strong><br/>
+                    Following: ${followingCount}<br/>
+                    Followers: ${followersCount}
+                `)
                     .style('left', (event.pageX + 10) + 'px')
                     .style('top', (event.pageY - 10) + 'px');
+                
+                // Highlight connected nodes
+                node.style('opacity', n => 
+                    n.id === d.id || 
+                    connections.some(l => l.source.id === n.id || l.target.id === n.id) ? 
+                    1 : 0.1
+                );
+                link.style('opacity', l => 
+                    l.source.id === d.id || l.target.id === d.id ? 
+                    1 : 0.1
+                );
             })
             .on('mouseout', () => {
                 tooltip.transition()
                     .duration(500)
                     .style('opacity', 0);
+                
+                // Reset highlight
+                node.style('opacity', 1);
+                link.style('opacity', 0.6);
             });
 
             // Add zoom behavior

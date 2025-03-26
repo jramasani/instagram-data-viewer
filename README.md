@@ -56,8 +56,8 @@ This tool is designed with privacy as the top priority:
 The network visualization feature provides an interactive graph of your Instagram connections:
 
 1. **Access**: 
-   - After uploading your data, click the "Interactive Network" card in the stats section
-   - Or click the network icon in the top stats area
+   - After uploading your data, click the stat card with the network icon (🕸️) in the stats section
+   - The network visualization will open in fullscreen mode
 
 2. **Features**:
    - Interactive zoom and pan
