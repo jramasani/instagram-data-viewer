@@ -655,6 +655,24 @@
         .section-content.collapsed {
             display: none;
         }
+
+        .upload-section.error {
+            border-color: #ffcdd2;
+            background: #fff5f5;
+        }
+
+        .upload-section.error .upload-title {
+            color: #e44;
+        }
+
+        .upload-section.error .upload-button {
+            background: #e44;
+            color: white;
+        }
+
+        .upload-section.error .upload-button:hover {
+            background: #f55;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -665,92 +683,78 @@
         </div>
 
         <div class="documentation">
-            <h2>How to Get Your Instagram Data</h2>
+            <h2>How to Get Your Instagram Followers & Following Data</h2>
             <p style="color: #8e8e8e; margin-bottom: 20px;">
-                First, you'll need to request your data from Instagram. This can take up to 48 hours to receive.
-                Choose your device below to see the steps:
+                You only need your followers and following data. Choose your Instagram setup below:
             </p>
 
             <div class="platform-tabs">
-                <button class="platform-tab active" onclick="showPlatform('mobile')">Mobile App</button>
-                <button class="platform-tab" onclick="showPlatform('desktop')">Desktop</button>
+                <button class="platform-tab active" onclick="showPlatform('meta')">Meta Accounts Center</button>
+                <button class="platform-tab" onclick="showPlatform('instagram')">Instagram Settings</button>
                 <button class="platform-tab" onclick="showPlatform('lite')">Instagram Lite</button>
             </div>
 
-            <div id="mobile-instructions" class="platform-content active">
-                <p><strong>Open your Instagram app</strong> and follow these steps:</p>
+            <div id="meta-instructions" class="platform-content active">
+                <p><strong>For accounts connected to Meta Accounts Center:</strong></p>
                 <ol>
-                    <li>Tap the three lines <i class="fas fa-bars"></i> (menu) in the top right corner of your profile</li>
-                    <li>Tap <strong>Settings and privacy</strong></li>
-                    <li>Tap <strong>Accounts Center</strong></li>
-                    <li>Tap <strong>Your information and permissions</strong></li>
-                    <li>Tap <strong>Download your information</strong></li>
-                    <li>Make sure to select <strong>JSON</strong> as the format (this is important!)</li>
-                    <li>Tap <strong>Submit request</strong></li>
+                    <li><strong>Go to Meta Accounts Center</strong>
+                        <ul>
+                            <li>Open Instagram Settings</li>
+                            <li>Tap/Click "Accounts Center"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Navigate to Download Options</strong>
+                        <ul>
+                            <li>Select "Your information and permissions"</li>
+                            <li>Click "Download your information"</li>
+                            <li>Click "Download or transfer information"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Select Data to Download</strong>
+                        <ul>
+                            <li>Choose "Some of your information" (not "All your information")</li>
+                            <li>Under "Connections" section, check only "Followers and following"</li>
+                            <li>Uncheck all other options (we only need followers/following data)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Configure Download Settings</strong>
+                        <ul>
+                            <li>Click "Download to device"</li>
+                            <li>Select your preferred date range</li>
+                            <li>Change format to "JSON" (important!)</li>
+                            <li>Click "Submit request"</li>
+                        </ul>
+                    </li>
                 </ol>
-                <div style="background: #fff5e6; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                    <p><strong>⚠️ Important Notes:</strong></p>
-                    <ul style="margin-bottom: 0;">
-                        <li>Make sure you're logged into the correct Instagram account</li>
-                        <li>The JSON format is required - other formats won't work with this tool</li>
-                        <li>You'll receive an email when your data is ready (usually within 48 hours)</li>
-                    </ul>
-                </div>
             </div>
 
-            <div id="desktop-instructions" class="platform-content">
-                <p><strong>Go to Instagram.com</strong> in your web browser and follow these steps:</p>
+            <div id="instagram-instructions" class="platform-content">
+                <p><strong>For regular Instagram accounts (not connected to Meta):</strong></p>
                 <ol>
-                    <li>Click the Settings gear <i class="fas fa-cog"></i> icon</li>
-                    <li>Click <strong>Privacy and security</strong></li>
-                    <li>Scroll down to find <strong>Data download</strong></li>
-                    <li>Click <strong>Request download</strong></li>
+                    <li>Go to Instagram Settings (gear icon ⚙️ or three lines ☰)</li>
+                    <li>Select "Privacy and Security"</li>
+                    <li>Scroll to "Data Download" section</li>
+                    <li>Click "Request Download"</li>
                     <li>Enter your email address</li>
-                    <li>Make sure to select <strong>JSON</strong> as the format (this is important!)</li>
-                    <li>Click <strong>Next</strong></li>
+                    <li>Select "JSON" as the format (required)</li>
                     <li>Enter your Instagram password</li>
-                    <li>Click <strong>Request download</strong></li>
+                    <li>Click "Next" and then "Done"</li>
                 </ol>
-                <div style="background: #fff5e6; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                    <p><strong>⚠️ Important Notes:</strong></p>
-                    <ul style="margin-bottom: 0;">
-                        <li>Make sure you're logged into the correct Instagram account</li>
-                        <li>The JSON format is required - other formats won't work with this tool</li>
-                        <li>You'll receive an email when your data is ready (usually within 48 hours)</li>
-                    </ul>
-                </div>
             </div>
 
             <div id="lite-instructions" class="platform-content">
+                <p><strong>For Instagram Lite users:</strong></p>
                 <ol>
-                    <li>Tap <i class="fas fa-bars"></i> in the top right.</li>
-                    <li>Tap <strong>Settings</strong>.</li>
-                    <li>Tap <strong>Account</strong>.</li>
-                    <li>Tap <strong>Download your information</strong>.</li>
-                    <li>Enter your email address.</li>
-                    <li>Select <strong>JSON</strong> as the format.</li>
-                    <li>Tap <strong>Request download</strong>.</li>
+                    <li>Tap the profile icon (👤)</li>
+                    <li>Tap the menu (☰) in the top right</li>
+                    <li>Tap "Settings"</li>
+                    <li>Tap "Account"</li>
+                    <li>Tap "Download your information"</li>
+                    <li>Enter your email</li>
+                    <li>Select "JSON" format (required)</li>
+                    <li>Tap "Request download"</li>
                 </ol>
             </div>
-
-            <div class="section">
-                <h3>After Requesting Data</h3>
-                <ol>
-                    <li>Check your email for a message from Instagram (this can take up to 48 hours)</li>
-                    <li>Click the "Download Information" button in the email</li>
-                    <li>Save the ZIP file to your device</li>
-                    <li>Come back to this page and upload the ZIP file below</li>
-                    <li>That's it! We'll analyze your data and show you the results</li>
-                </ol>
-                <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 15px;">
-                    <p><strong>💡 Pro Tip:</strong> You don't need to unzip or modify the file - just upload it exactly as you received it from Instagram.</p>
-                </div>
-            </div>
-
-            <p class="reference-link">
-                These instructions are based on <a href="https://help.instagram.com/181231772500920/" target="_blank">Instagram's official help article</a>. 
-                If anything has changed, please check the official article for the most up-to-date steps.
-            </p>
         </div>
 
         <div class="privacy-notice">
@@ -1110,51 +1114,71 @@
 
                 // Find files in the nested structure
                 const findFile = (filename) => {
-                    // Try different possible paths
                     const possiblePaths = [
                         filename,
                         `connections/followers_and_following/${filename}`,
-                        `followers_and_following/${filename}`
+                        `followers_and_following/${filename}`,
+                        `media/${filename}`,
+                        `connections/${filename}`
                     ];
                     
-                    console.log(`Looking for ${filename} in paths:`, possiblePaths);
                     for (const path of possiblePaths) {
                         const file = zip.file(path);
-                        if (file) console.log(`Found ${filename} at ${path}`);
-                        if (file) return file;
+                        if (file) {
+                            console.log(`Found ${filename} at ${path}`);
+                            return file;
+                        }
                     }
+                    
                     console.warn(`File not found: ${filename}`);
                     return null;
                 };
 
-                const filePromises = {
-                    followers: findFile("followers_1.json")?.async("text").then(JSON.parse),
-                    following: findFile("following.json")?.async("text").then(JSON.parse),
-                    blocked: findFile("blocked_profiles.json")?.async("text").then(JSON.parse),
-                    restricted: findFile("restricted_profiles.json")?.async("text").then(JSON.parse)
-                };
+                // Try to find each required file
+                const followers = findFile("followers_1.json");
+                const following = findFile("following.json");
 
-                console.log('File promises created:', Object.keys(filePromises));
+                if (!followers || !following) {
+                    showError(
+                        "We couldn't find your followers and following data",
+                        "Please make sure:",
+                        [
+                            "You downloaded your Instagram data in JSON format",
+                            "You included 'Followers and following' in your data request",
+                            "You're using the ZIP file from your most recent data download"
+                        ]
+                    );
+                    return;
+                }
+
+                // Parse the files
+                const filePromises = {
+                    followers: followers.async("text").then(JSON.parse),
+                    following: following.async("text").then(JSON.parse),
+                    blocked: findFile("blocked_profiles.json")?.async("text").then(JSON.parse).catch(() => null),
+                    restricted: findFile("restricted_profiles.json")?.async("text").then(JSON.parse).catch(() => null)
+                };
 
                 const data = {};
                 for (const [key, promise] of Object.entries(filePromises)) {
                     try {
                         data[key] = await promise;
-                        console.log(`Loaded ${key} data:`, data[key]);
                     } catch (err) {
                         console.warn(`Failed to load ${key} data:`, err);
                         data[key] = null;
+                        if (key === 'followers' || key === 'following') {
+                            showError(
+                                "There seems to be an issue with your data file",
+                                "This could be because:",
+                                [
+                                    "The file might be corrupted",
+                                    "The data format might have changed",
+                                    "You might need to request a new data download"
+                                ]
+                            );
+                            return;
+                        }
                     }
-                }
-
-                if (!data.followers || !data.following) {
-                    console.error('Missing required data:', data);
-                    throw new Error(
-                        "Could not find the required Instagram data files in the ZIP. Please make sure:\n\n" +
-                        "1. You're uploading the correct ZIP file from your Instagram data download\n" +
-                        "2. The ZIP contains the 'connections/followers_and_following' folder\n" +
-                        "3. The folder contains followers_1.json and following.json files"
-                    );
                 }
 
                 // Process the data
@@ -1166,10 +1190,53 @@
 
             } catch (error) {
                 console.error('Error processing ZIP file:', error);
-                document.querySelector('.upload-title').textContent = 'Upload Your Instagram Data';
-                document.querySelector('.upload-text').textContent = 'or drag and drop your ZIP file here';
-                alert(error.message || 'Error processing ZIP file. Please make sure it contains the required JSON files.');
+                
+                if (error.message?.includes('invalid zip')) {
+                    showError(
+                        "This doesn't look like a valid ZIP file",
+                        "Please make sure:",
+                        [
+                            "You're using the ZIP file from Instagram",
+                            "The file downloaded completely",
+                            "The file hasn't been modified"
+                        ]
+                    );
+                } else {
+                    showError(
+                        "Something went wrong while processing your data",
+                        "You could try:",
+                        [
+                            "Downloading your data again from Instagram",
+                            "Making sure you selected JSON format",
+                            "Using a different browser"
+                        ]
+                    );
+                }
             }
+        }
+
+        // Helper function to show user-friendly errors
+        function showError(title, subtitle, bulletPoints) {
+            const uploadSection = document.getElementById('uploadSection');
+            const uploadTitle = document.querySelector('.upload-title');
+            const uploadText = document.querySelector('.upload-text');
+            
+            uploadTitle.innerHTML = `<i class="fas fa-exclamation-circle" style="color: #e44"></i> ${title}`;
+            
+            let errorHtml = `
+                <div style="color: #666; margin: 15px 0;">
+                    ${subtitle}
+                    <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                        ${bulletPoints.map(point => `<li>${point}</li>`).join('')}
+                    </ul>
+                </div>
+                <button class="upload-button" onclick="document.getElementById('zipUpload').click()">
+                    <i class="fas fa-redo"></i> Try Another File
+                </button>
+            `;
+            
+            uploadText.innerHTML = errorHtml;
+            uploadSection.classList.add('error');
         }
 
         function processInstagramData(data) {
@@ -1178,68 +1245,55 @@
 
             const followers = data.followers;
             const following = data.following.relationships_following;
-            const blocked = data.blocked && data.blocked.relationships_blocked_v2 ? 
-                data.blocked.relationships_blocked_v2 : [];
-            const restricted = data.restricted && data.restricted.relationships_restricted_v2 ? 
-                data.restricted.relationships_restricted_v2 : [];
+            
+            // Fix blocked users data structure
+            const blocked = data.blocked?.relationships_blocked_v2 || 
+                           data.blocked?.relationships_blocked_users || 
+                           data.blocked?.blocked_users || 
+                           [];
+            
+            // Fix restricted users data structure
+            const restricted = data.restricted?.relationships_restricted_v2 || 
+                              data.restricted?.restricted_users || 
+                              [];
+
+            // Normalize blocked/restricted data structure
+            const normalizeUserData = (user) => {
+                if (user.string_list_data) return user.string_list_data[0];
+                return {
+                    href: `https://instagram.com/${user.title || user.username}`,
+                    value: user.title || user.username,
+                    timestamp: user.timestamp || Date.now()/1000
+                };
+            };
+
+            const normalizedBlocked = blocked.map(normalizeUserData);
+            const normalizedRestricted = restricted.map(normalizeUserData);
 
             console.log('Parsed data:', {
                 followersCount: followers?.length,
                 followingCount: following?.length,
-                blockedCount: blocked.length,
-                restrictedCount: restricted.length
+                blockedCount: normalizedBlocked.length,
+                restrictedCount: normalizedRestricted.length
             });
 
-            // Get users who don't follow back
-            const followerUsernames = new Set(followers.map(user => user.string_list_data[0].value));
-            const followingUsernames = new Set(following.map(user => user.string_list_data[0].value));
-            
-            const notFollowingBack = following.filter(user => 
-                !followerUsernames.has(user.string_list_data[0].value)
-            );
-
-            // Get followers you don't follow back
-            const notFollowedBack = followers.filter(user => 
-                !followingUsernames.has(user.string_list_data[0].value)
-            );
-
-            console.log('Calculated relationships:', {
-                notFollowingBackCount: notFollowingBack.length,
-                notFollowedBackCount: notFollowedBack.length
-            });
-
-            // Update stats and render lists
+            // Update stats
             const stats = {
                 followers: followers.length,
                 following: following.length,
-                blocked: blocked.length,
-                restricted: restricted.length,
-                notFollowingBack: notFollowingBack.length,
-                notFollowedBack: notFollowedBack.length
+                blocked: normalizedBlocked.length,
+                restricted: normalizedRestricted.length
             };
 
-            console.log('Updating stats:', stats);
             updateStats(stats);
 
-            console.log('Rendering lists');
-            renderAllLists({
-                followers,
-                following,
-                blocked,
-                restricted,
-                notFollowingBack,
-                notFollowedBack
-            });
-
-            console.log('Setting up search listeners');
-            setupSearchListeners({
-                followers,
-                following,
-                blocked,
-                restricted,
-                notFollowingBack,
-                notFollowedBack
-            });
+            // Render lists with normalized data
+            renderUserList(followers.map(user => user.string_list_data[0]), 'followersList');
+            renderUserList(following.map(user => user.string_list_data[0]), 'followingList');
+            renderUserList(normalizedBlocked, 'blockedList');
+            renderUserList(normalizedRestricted, 'restrictedList');
+            
+            // ... rest of the function
         }
 
         // Function to format timestamp to readable date
