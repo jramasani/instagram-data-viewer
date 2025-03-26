@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <!-- Include D3.js for network visualization -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="mock-data.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -673,6 +674,126 @@
         .upload-section.error .upload-button:hover {
             background: #f55;
         }
+
+        .intro-section {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .intro-content {
+            color: #262626;
+            line-height: 1.6;
+        }
+
+        .intro-content h2 {
+            color: #262626;
+            margin: 25px 0 15px;
+            font-size: 1.4em;
+        }
+
+        .intro-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .intro-content li {
+            margin: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .intro-content li:before {
+            position: absolute;
+            left: 0;
+        }
+
+        .try-demo {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #0095f6, #00bcd4);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,149,246,0.3);
+        }
+
+        .demo-note {
+            color: #8e8e8e;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .demo-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #e8f5e9;
+            padding: 10px;
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .demo-notice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .demo-notice button {
+            background: #4caf50;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .waiting-banner {
+            background: linear-gradient(135deg, #ffebee, #fff3e0);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .waiting-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .waiting-banner p {
+            font-size: 16px;
+            color: #262626;
+            margin: 10px 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -680,6 +801,34 @@
     <div class="container">
         <div class="header">
             <h1>Instagram Data Viewer</h1>
+        </div>
+
+        <div class="intro-section">
+            <h1>Instagram Data Viewer 🔒</h1>
+            
+            <div class="intro-content">
+                <div class="what-you-get">
+                    <h2>What is this tool?</h2>
+                    <p>
+                        A privacy-focused web tool that helps you analyze your Instagram connections. Perfect for:
+                    </p>
+                    <ul>
+                        <li>🔍 Content Creators tracking follower growth</li>
+                        <li>📊 Social Media Managers analyzing engagement</li>
+                        <li>🧐 Users wanting to identify ghost followers</li>
+                        <li>🚫 Anyone managing blocked/restricted accounts</li>
+                        <li>🕸️ Visual learners who prefer network graphs</li>
+                    </ul>
+
+                    <h2>Why use this tool?</h2>
+                    <ul>
+                        <li>✨ <strong>100% Private:</strong> All analysis happens in your browser - no data uploads</li>
+                        <li>🎯 <strong>Focused Analysis:</strong> See exactly who follows you and who you follow</li>
+                        <li>📱 <strong>Works Everywhere:</strong> Use on desktop or mobile</li>
+                        <li>🔄 <strong>Always Current:</strong> Use your latest Instagram data export</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <div class="documentation">
@@ -754,6 +903,14 @@
                     <li>Select "JSON" format (required)</li>
                     <li>Tap "Request download"</li>
                 </ol>
+            </div>
+
+            <div class="waiting-banner">
+                <div class="waiting-icon">⏳</div>
+                <p>Instagram takes up to 48 hours to prepare your data. While you wait...</p>
+                <button onclick="loadDemoData()" class="demo-button">
+                    Try Demo Version
+                </button>
             </div>
         </div>
 
