@@ -36,36 +36,29 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
-            overflow-x: auto;
             padding: 5px;
         }
 
-        @media (min-width: 640px) {
-            .stats {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (min-width: 1024px) {
+        @media (min-width: 1400px) {
             .stats {
                 grid-template-columns: repeat(6, 1fr);
             }
         }
 
         .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background: var(--bg-primary);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
-            min-width: unset;
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         .stat-card::before {
@@ -75,14 +68,14 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            background: var(--primary-gradient);
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
         .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
         }
 
         .stat-card:hover::before {
@@ -90,16 +83,21 @@
         }
 
         .stat-number {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            color: #262626;
-            margin-bottom: 8px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .stat-label {
-            color: #8e8e8e;
-            font-size: 14px;
+            color: var(--text-secondary);
+            font-size: 15px;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .stat-trend {
@@ -128,60 +126,53 @@
 
         .section-header {
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: space-between;
             margin-bottom: 15px;
-            border-bottom: 1px solid #dbdbdb;
-            padding-bottom: 10px;
-            gap: 10px;
-        }
-
-        @media (min-width: 768px) {
-            .section-header {
-                flex-direction: row;
-                justify-content: space-between;
-            }
+            gap: 15px;
         }
 
         .section-header-left {
             display: flex;
             align-items: center;
             gap: 10px;
+            flex: 1;
         }
 
         .section-header h2 {
-            margin-top: 0;
-            color: #262626;
-            margin-bottom: 0;
+            margin: 0;
+            font-size: 18px;
+            flex: 1;
         }
 
         .section-info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
             margin-bottom: 15px;
             color: #8e8e8e;
-            font-size: 13px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .section-info i {
-            margin-right: 5px;
+            font-size: 16px;
         }
 
         .user-list {
             max-height: 400px;
             overflow-y: auto;
+            border: 1px solid #efefef;
+            border-radius: 4px;
         }
 
         .user-item {
             display: flex;
             align-items: center;
-            padding: 12px 10px;
+            padding: 12px 16px;
             border-bottom: 1px solid #efefef;
             transition: all 0.2s ease;
             justify-content: space-between;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .user-item:last-child {
@@ -231,10 +222,16 @@
 
         .search {
             width: 100%;
-            padding: 10px;
+            padding: 10px 16px;
             border: 1px solid #dbdbdb;
             border-radius: 4px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .search:focus {
+            outline: none;
+            border-color: #0095f6;
         }
 
         .upload-section {
@@ -459,7 +456,8 @@
             text-decoration: underline;
         }
 
-        /* Network visualization styles */
+        /* Comment out network visualization styles */
+        /* Network visualization styles - for future release
         .network-view {
             display: none;
             position: fixed;
@@ -583,17 +581,29 @@
         .sort-controls {
             display: flex;
             gap: 10px;
-            overflow-x: auto;
-            width: 100%;
-            padding-bottom: 5px;
-            justify-content: center;
+            flex-wrap: wrap;
+            align-items: center;
+            min-width: fit-content;
         }
 
-        @media (min-width: 768px) {
+        @media (max-width: 768px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
             .sort-controls {
-                width: auto;
-                justify-content: flex-end;
-                padding-bottom: 0;
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
+                margin-left: 40px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -608,10 +618,11 @@
             align-items: center;
             gap: 5px;
             white-space: nowrap;
+            height: 32px;
         }
 
-        .sort-button:hover {
-            background: #f8f9fa;
+        .sort-button i {
+            font-size: 14px;
         }
 
         .sort-button.active {
@@ -631,9 +642,14 @@
             border: none;
             cursor: pointer;
             color: #8e8e8e;
-            padding: 5px;
+            padding: 8px;
             border-radius: 4px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
         }
 
         .toggle-section:hover {
@@ -650,11 +666,16 @@
         }
 
         .section-content {
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-out;
+            overflow: hidden;
+            opacity: 1;
+            margin-top: 15px;
         }
 
         .section-content.collapsed {
             display: none;
+            opacity: 0;
+            margin-top: 0;
         }
 
         .upload-section.error {
@@ -794,6 +815,74 @@
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
+
+        /* Updated color scheme */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            --accent-color: #E1306C;
+            --text-primary: #262626;
+            --text-secondary: #8e8e8e;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Dark theme */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-primary: #ffffff;
+                --text-secondary: #b0b0b0;
+                --bg-primary: #262626;
+                --bg-secondary: #1a1a1a;
+                --shadow: 0 4px 15px rgba(0,0,0,0.3);
+            }
+            
+            body {
+                background: var(--bg-secondary);
+                color: var(--text-primary);
+            }
+            
+            .stat-card {
+                background: var(--bg-primary);
+                color: var(--text-primary);
+            }
+            
+            .section {
+                background: var(--bg-primary);
+            }
+            
+            .user-item:hover {
+                background: rgba(255,255,255,0.05);
+            }
+        }
+
+        /* Add styles for user avatars */
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+            background-color: #f0f0f0;
+        }
+
+        .user-avatar-placeholder {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 12px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .user-name {
+            flex-grow: 1;
+        }
+        */
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -965,16 +1054,21 @@
                     <div class="stat-label">Blocked</div>
                     <div class="stat-trend">For your peace of mind</div>
                 </div>
-                <div class="stat-card" onclick="scrollToSection('notFollowingList')">
+                <div class="stat-card" onclick="scrollToSection('notFollowingBackSection')">
                     <div class="stat-number" id="notFollowingBackCount">0</div>
-                    <div class="stat-label">Ghost Followers</div>
-                    <div class="stat-trend negative">Not following you back</div>
+                    <div class="stat-label" id="notFollowingBackLabel">Not Following You Back</div>
+                    <div class="stat-trend negative">People you follow who don't follow you</div>
                 </div>
-                <div class="stat-card" onclick="scrollToSection('notFollowedList')">
-                    <div class="stat-number" id="notFollowedBackCount">0</div>
-                    <div class="stat-label">Potential Connections</div>
-                    <div class="stat-trend">Followers you could follow back</div>
+                <div class="stat-card" onclick="scrollToSection('youDontFollowSection')">
+                    <div class="stat-number" id="youDontFollowCount">0</div>
+                    <div class="stat-label" id="youDontFollowLabel">You Don't Follow Back</div>
+                    <div class="stat-trend">People who follow you but you don't follow</div>
                 </div>
+                <div class="stat-card" onclick="scrollToSection('restrictedSection')">
+                    <div class="stat-number" id="restrictedCount">0</div>
+                    <div class="stat-label">Restricted</div>
+                </div>
+                <!-- Commenting out network graph feature for future release
                 <div class="stat-card" onclick="showNetworkView()">
                     <div class="stat-number">
                         <i class="fas fa-network-wired"></i>
@@ -982,12 +1076,16 @@
                     <div class="stat-label">Interactive Network</div>
                     <div class="stat-trend">Visualize connections</div>
                 </div>
+                -->
             </div>
 
             <div class="section">
                 <div class="section-header">
                     <div class="section-header-left">
-                        <button class="toggle-section" onclick="toggleSection(this)">
+                        <button class="toggle-section" 
+                                onclick="toggleSection(this)" 
+                                aria-expanded="true" 
+                                aria-label="Toggle section">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <h2>Followers</h2>
@@ -1016,7 +1114,10 @@
             <div class="section">
                 <div class="section-header">
                     <div class="section-header-left">
-                        <button class="toggle-section" onclick="toggleSection(this)">
+                        <button class="toggle-section" 
+                                onclick="toggleSection(this)" 
+                                aria-expanded="true" 
+                                aria-label="Toggle section">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <h2>Following</h2>
@@ -1045,7 +1146,10 @@
             <div class="section">
                 <div class="section-header">
                     <div class="section-header-left">
-                        <button class="toggle-section" onclick="toggleSection(this)">
+                        <button class="toggle-section" 
+                                onclick="toggleSection(this)" 
+                                aria-expanded="true" 
+                                aria-label="Toggle section">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <h2>Blocked Users</h2>
@@ -1074,7 +1178,10 @@
             <div class="section">
                 <div class="section-header">
                     <div class="section-header-left">
-                        <button class="toggle-section" onclick="toggleSection(this)">
+                        <button class="toggle-section" 
+                                onclick="toggleSection(this)" 
+                                aria-expanded="true" 
+                                aria-label="Toggle section">
                             <i class="fas fa-chevron-down"></i>
                         </button>
                         <h2>Restricted Users</h2>
@@ -1100,22 +1207,25 @@
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" id="notFollowingBackSection">
                 <div class="section-header">
                     <div class="section-header-left">
-                        <button class="toggle-section" onclick="toggleSection(this)">
+                        <button class="toggle-section" 
+                                onclick="toggleSection(this)" 
+                                aria-expanded="true" 
+                                aria-label="Toggle section">
                             <i class="fas fa-chevron-down"></i>
                         </button>
-                        <h2>Users Not Following You Back</h2>
+                        <h2>People Who Don't Follow You Back</h2>
                     </div>
                     <div class="sort-controls">
-                        <button class="sort-button active" onclick="sortUsers('notFollowingList', 'newest', this)">
+                        <button class="sort-button active" onclick="sortUsers('notFollowingBackList', 'newest', this)">
                             <i class="fas fa-clock"></i> Newest
                         </button>
-                        <button class="sort-button" onclick="sortUsers('notFollowingList', 'oldest', this)">
+                        <button class="sort-button" onclick="sortUsers('notFollowingBackList', 'oldest', this)">
                             <i class="fas fa-history"></i> Oldest
                         </button>
-                        <button class="sort-button" onclick="sortUsers('notFollowingList', 'name', this)">
+                        <button class="sort-button" onclick="sortUsers('notFollowingBackList', 'name', this)">
                             <i class="fas fa-sort-alpha-down"></i> Name
                         </button>
                     </div>
@@ -1124,27 +1234,29 @@
                     <div class="section-info">
                         <span><i class="fas fa-info-circle"></i> People you follow who don't follow you back</span>
                     </div>
-                    <input type="text" class="search" id="notFollowingSearch" placeholder="Search users...">
-                    <div class="user-list" id="notFollowingList"></div>
+                    <div class="user-list" id="notFollowingBackList"></div>
                 </div>
             </div>
 
-            <div class="section">
+            <div class="section" id="youDontFollowSection">
                 <div class="section-header">
                     <div class="section-header-left">
-                        <button class="toggle-section" onclick="toggleSection(this)">
+                        <button class="toggle-section" 
+                                onclick="toggleSection(this)" 
+                                aria-expanded="true" 
+                                aria-label="Toggle section">
                             <i class="fas fa-chevron-down"></i>
                         </button>
-                        <h2>Your Non-Followed Followers</h2>
+                        <h2>People Who Follow You But You Don't Follow Back</h2>
                     </div>
                     <div class="sort-controls">
-                        <button class="sort-button active" onclick="sortUsers('notFollowedList', 'newest', this)">
+                        <button class="sort-button active" onclick="sortUsers('youDontFollowList', 'newest', this)">
                             <i class="fas fa-clock"></i> Newest
                         </button>
-                        <button class="sort-button" onclick="sortUsers('notFollowedList', 'oldest', this)">
+                        <button class="sort-button" onclick="sortUsers('youDontFollowList', 'oldest', this)">
                             <i class="fas fa-history"></i> Oldest
                         </button>
-                        <button class="sort-button" onclick="sortUsers('notFollowedList', 'name', this)">
+                        <button class="sort-button" onclick="sortUsers('youDontFollowList', 'name', this)">
                             <i class="fas fa-sort-alpha-down"></i> Name
                         </button>
                     </div>
@@ -1153,8 +1265,7 @@
                     <div class="section-info">
                         <span><i class="fas fa-info-circle"></i> People who follow you but you don't follow back</span>
                     </div>
-                    <input type="text" class="search" id="notFollowedSearch" placeholder="Search users...">
-                    <div class="user-list" id="notFollowedList"></div>
+                    <div class="user-list" id="youDontFollowList"></div>
                 </div>
             </div>
         </div>
@@ -1168,6 +1279,7 @@
         </div>
     </div>
 
+    <!-- Comment out network view for future release
     <div id="networkView" class="network-view">
         <button class="close-network" onclick="hideNetworkView()">×</button>
         <div class="network-controls">
@@ -1195,25 +1307,34 @@
                     <span class="legend-count" id="mutualCount">0</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #ff9800"></div>
+                    <div class="legend-color" style="background: #5851DB"></div>
                     <span>You Follow Them</span>
                     <span class="legend-count" id="followingCount">0</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #e91e63"></div>
+                    <div class="legend-color" style="background: #833AB4"></div>
                     <span>They Follow You</span>
                     <span class="legend-count" id="followerCount">0</span>
                 </div>
                 <div class="legend-item">
-                    <div class="legend-color" style="background: #f44336"></div>
+                    <div class="legend-color" style="background: #C13584"></div>
                     <span>Blocked Users</span>
                     <span class="legend-count" id="blockedCount">0</span>
                 </div>
             </div>
         </div>
     </div>
+    -->
 
     <script>
+        // Add this at the very beginning of your script section
+        const DEBUG = false;  // Set to true to enable logging
+        const log = {
+            info: (...args) => DEBUG && console.log(...args),
+            error: (...args) => DEBUG && console.error(...args),
+            warn: (...args) => DEBUG && console.warn(...args)
+        };
+
         // Platform tabs functionality
         function showPlatform(platform) {
             // Update tabs
@@ -1247,128 +1368,205 @@
             uploadSection.classList.remove('drag-over');
             const file = e.dataTransfer.files[0];
             if (file.name.endsWith('.zip')) {
-                processZipFile(file);
+                handleFileUpload(e);
             } else {
                 alert('Please upload a ZIP file');
             }
         });
 
         document.getElementById('zipUpload').addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                processZipFile(file);
-            }
+            handleFileUpload(e);
         });
 
-        async function processZipFile(file) {
-            try {
-                console.log('Processing ZIP file:', file.name);
-                const zip = await JSZip.loadAsync(file);
-                
-                // Show loading state
-                document.querySelector('.upload-title').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-                document.querySelector('.upload-text').textContent = 'Please wait while we analyze your data locally';
+        // Main function to handle file upload
+        function handleFileUpload(event) {
+            const file = event.target.files?.[0] || event.dataTransfer?.files?.[0];
+            if (!file) return;
 
-                // Find files in the nested structure
-                const findFile = (filename) => {
-                    const possiblePaths = [
-                        filename,
-                        `connections/followers_and_following/${filename}`,
-                        `followers_and_following/${filename}`,
-                        `media/${filename}`,
-                        `connections/${filename}`
-                    ];
+            // Show loading state
+            document.querySelector('.upload-title').innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            document.querySelector('.upload-text').textContent = 'Please wait while we analyze your data locally';
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const zip = await JSZip.loadAsync(e.target.result);
+                    const jsonFiles = {};
                     
-                    for (const path of possiblePaths) {
-                        const file = zip.file(path);
-                        if (file) {
-                            console.log(`Found ${filename} at ${path}`);
-                            return file;
+                    // Extract all JSON files from the followers_and_following directory
+                    const promises = [];
+                    zip.forEach((relativePath, zipEntry) => {
+                        if (relativePath.includes('followers_and_following/') && relativePath.endsWith('.json')) {
+                            const fileName = relativePath.split('/').pop();
+                            console.log(`Found file: ${fileName}`);
+                            const promise = zipEntry.async('string').then(content => {
+                                try {
+                                    jsonFiles[fileName] = JSON.parse(content);
+                                    console.log(`Successfully parsed: ${fileName}`);
+                                } catch (parseError) {
+                                    console.error(`Error parsing ${fileName}:`, parseError);
+                                }
+                            });
+                            promises.push(promise);
                         }
+                    });
+
+                    await Promise.all(promises);
+                    console.log('Extracted files:', Object.keys(jsonFiles));
+                    
+                    if (Object.keys(jsonFiles).length === 0) {
+                        throw new Error('No Instagram data files found in the ZIP');
                     }
                     
-                    console.warn(`File not found: ${filename}`);
-                    return null;
-                };
+                    // Process the data
+                    processExtractedFiles(jsonFiles);
 
-                // Try to find each required file
-                const followers = findFile("followers_1.json");
-                const following = findFile("following.json");
-
-                if (!followers || !following) {
+                } catch (error) {
+                    console.error('Error processing ZIP file:', error);
                     showError(
-                        "We couldn't find your followers and following data",
-                        "Please make sure:",
-                        [
-                            "You downloaded your Instagram data in JSON format",
-                            "You included 'Followers and following' in your data request",
-                            "You're using the ZIP file from your most recent data download"
-                        ]
-                    );
-                    return;
-                }
-
-                // Parse the files
-                const filePromises = {
-                    followers: followers.async("text").then(JSON.parse),
-                    following: following.async("text").then(JSON.parse),
-                    blocked: findFile("blocked_profiles.json")?.async("text").then(JSON.parse).catch(() => null),
-                    restricted: findFile("restricted_profiles.json")?.async("text").then(JSON.parse).catch(() => null)
-                };
-
-                const data = {};
-                for (const [key, promise] of Object.entries(filePromises)) {
-                    try {
-                        data[key] = await promise;
-                    } catch (err) {
-                        console.warn(`Failed to load ${key} data:`, err);
-                        data[key] = null;
-                        if (key === 'followers' || key === 'following') {
-                            showError(
-                                "There seems to be an issue with your data file",
-                                "This could be because:",
-                                [
-                                    "The file might be corrupted",
-                                    "The data format might have changed",
-                                    "You might need to request a new data download"
-                                ]
-                            );
-                            return;
-                        }
-                    }
-                }
-
-                // Process the data
-                processInstagramData(data);
-                
-                // Show the main content and hide upload section
-                document.getElementById('uploadSection').style.display = 'none';
-                document.getElementById('mainContent').style.display = 'block';
-
-            } catch (error) {
-                console.error('Error processing ZIP file:', error);
-                
-                if (error.message?.includes('invalid zip')) {
-                    showError(
-                        "This doesn't look like a valid ZIP file",
+                        "Error Processing File",
                         "Please make sure:",
                         [
                             "You're using the ZIP file from Instagram",
                             "The file downloaded completely",
-                            "The file hasn't been modified"
-                        ]
-                    );
-                } else {
-                    showError(
-                        "Something went wrong while processing your data",
-                        "You could try:",
-                        [
-                            "Downloading your data again from Instagram",
-                            "Making sure you selected JSON format",
-                            "Using a different browser"
+                            "You selected JSON format when requesting data"
                         ]
                     );
                 }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Process the extracted JSON files
+        function processExtractedFiles(jsonFiles) {
+            try {
+                console.log('Processing extracted files:', jsonFiles);
+                window.instagramData = jsonFiles; // Store for network visualization
+                
+                // Extract data from each file
+                let followers = [];
+                let following = [];
+                let blocked = [];
+                let restricted = [];
+                
+                // Debug all JSON files
+                for (const fileName in jsonFiles) {
+                    console.log(`File ${fileName} structure:`, JSON.stringify(jsonFiles[fileName]).substring(0, 200) + '...');
+                }
+                
+                // Process followers (could be in followers_1.json or followers.json)
+                if (jsonFiles['followers_1.json']) {
+                    // Try different possible structures
+                    if (jsonFiles['followers_1.json'].relationships_followers) {
+                        followers = jsonFiles['followers_1.json'].relationships_followers;
+                    } else if (Array.isArray(jsonFiles['followers_1.json'])) {
+                        followers = jsonFiles['followers_1.json'];
+                    } else {
+                        // Try to find any array in the object
+                        for (const key in jsonFiles['followers_1.json']) {
+                            if (Array.isArray(jsonFiles['followers_1.json'][key])) {
+                                followers = jsonFiles['followers_1.json'][key];
+                                console.log(`Found followers array in key: ${key}`);
+                                break;
+                            }
+                        }
+                    }
+                    console.log(`Found ${followers.length} followers in followers_1.json`);
+                } else if (jsonFiles['followers.json']) {
+                    // Similar logic for followers.json
+                    if (jsonFiles['followers.json'].relationships_followers) {
+                        followers = jsonFiles['followers.json'].relationships_followers;
+                    } else if (Array.isArray(jsonFiles['followers.json'])) {
+                        followers = jsonFiles['followers.json'];
+                    } else {
+                        for (const key in jsonFiles['followers.json']) {
+                            if (Array.isArray(jsonFiles['followers.json'][key])) {
+                                followers = jsonFiles['followers.json'][key];
+                                console.log(`Found followers array in key: ${key}`);
+                                break;
+                            }
+                        }
+                    }
+                    console.log(`Found ${followers.length} followers in followers.json`);
+                }
+                
+                // Debug the followers data
+                console.log('Followers data structure:', followers);
+                if (followers.length > 0) {
+                    console.log('First follower example:', JSON.stringify(followers[0]));
+                }
+                
+                // Process following
+                if (jsonFiles['following.json'] && jsonFiles['following.json'].relationships_following) {
+                    following = jsonFiles['following.json'].relationships_following;
+                } else if (jsonFiles['following.json']) {
+                    // Try to find the array in the object
+                    for (const key in jsonFiles['following.json']) {
+                        if (Array.isArray(jsonFiles['following.json'][key])) {
+                            following = jsonFiles['following.json'][key];
+                            console.log(`Found following array in key: ${key}`);
+                            break;
+                        }
+                    }
+                }
+                console.log(`Found ${following.length} following in following.json`);
+                
+                // Process blocked users
+                if (jsonFiles['blocked_profiles.json'] && jsonFiles['blocked_profiles.json'].relationships_blocked_users) {
+                    blocked = jsonFiles['blocked_profiles.json'].relationships_blocked_users;
+                } else if (jsonFiles['blocked_profiles.json']) {
+                    for (const key in jsonFiles['blocked_profiles.json']) {
+                        if (Array.isArray(jsonFiles['blocked_profiles.json'][key])) {
+                            blocked = jsonFiles['blocked_profiles.json'][key];
+                            console.log(`Found blocked array in key: ${key}`);
+                            break;
+                        }
+                    }
+                }
+                console.log(`Found ${blocked.length} blocked users in blocked_profiles.json`);
+                
+                // Process restricted users
+                if (jsonFiles['restricted_profiles.json'] && jsonFiles['restricted_profiles.json'].relationships_restricted_users) {
+                    restricted = jsonFiles['restricted_profiles.json'].relationships_restricted_users;
+                } else if (jsonFiles['restricted_profiles.json']) {
+                    for (const key in jsonFiles['restricted_profiles.json']) {
+                        if (Array.isArray(jsonFiles['restricted_profiles.json'][key])) {
+                            restricted = jsonFiles['restricted_profiles.json'][key];
+                            console.log(`Found restricted array in key: ${key}`);
+                            break;
+                        }
+                    }
+                }
+                console.log(`Found ${restricted.length} restricted users in restricted_profiles.json`);
+                
+                // Create a combined data object that matches our expected format
+                const combinedData = {
+                    followers: followers,
+                    following: {
+                        relationships_following: following
+                    },
+                    blocked: {
+                        relationships_blocked_users: blocked
+                    },
+                    restricted: {
+                        relationships_restricted_users: restricted
+                    }
+                };
+                
+                // Process the combined data
+                processInstagramData(combinedData);
+                
+            } catch (error) {
+                console.error('Error processing extracted files:', error);
+                showError(
+                    'Error Processing Data',
+                    'There was a problem processing your Instagram data:',
+                    [
+                        'Make sure you selected JSON format when requesting data',
+                        'Check if the ZIP file contains followers and following data',
+                        'Try downloading your data again from Instagram'
+                    ]
+                );
             }
         }
 
@@ -1396,184 +1594,301 @@
             uploadSection.classList.add('error');
         }
 
+        // Process the Instagram data from JSON files
         function processInstagramData(data) {
-            console.log('Processing data:', data);
-            window.instagramData = data;
-
-            const followers = data.followers;
-            const following = data.following.relationships_following;
-            
-            // Fix blocked users data structure
-            const blocked = data.blocked?.relationships_blocked_v2 || 
-                           data.blocked?.relationships_blocked_users || 
-                           data.blocked?.blocked_users || 
-                           [];
-            
-            // Fix restricted users data structure
-            const restricted = data.restricted?.relationships_restricted_v2 || 
-                              data.restricted?.restricted_users || 
-                              [];
-
-            // Normalize blocked/restricted data structure
-            const normalizeUserData = (user) => {
-                if (user.string_list_data) return user.string_list_data[0];
-                return {
-                    href: `https://instagram.com/${user.title || user.username}`,
-                    value: user.title || user.username,
-                    timestamp: user.timestamp || Date.now()/1000
-                };
-            };
-
-            const normalizedBlocked = blocked.map(normalizeUserData);
-            const normalizedRestricted = restricted.map(normalizeUserData);
-
-            console.log('Parsed data:', {
-                followersCount: followers?.length,
-                followingCount: following?.length,
-                blockedCount: normalizedBlocked.length,
-                restrictedCount: normalizedRestricted.length
-            });
-
-            // Update stats
-            const stats = {
-                followers: followers.length,
-                following: following.length,
-                blocked: normalizedBlocked.length,
-                restricted: normalizedRestricted.length
-            };
-
-            updateStats(stats);
-
-            // Render lists with normalized data
-            renderUserList(followers.map(user => user.string_list_data[0]), 'followersList');
-            renderUserList(following.map(user => user.string_list_data[0]), 'followingList');
-            renderUserList(normalizedBlocked, 'blockedList');
-            renderUserList(normalizedRestricted, 'restrictedList');
-            
-            // ... rest of the function
-        }
-
-        // Function to format timestamp to readable date
-        function formatDate(timestamp) {
-            return new Date(timestamp * 1000).toLocaleDateString();
-        }
-
-        // Function to create user item HTML
-        function createUserItem(user) {
-            return `
-                <div class="user-item">
-                    <a href="${user.href}" target="_blank" class="user-link">
-                        ${user.value || user.title}
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                    <span class="timestamp" data-timestamp="${user.timestamp}">
-                        <i class="far fa-clock"></i>
-                        ${formatRelativeDate(user.timestamp)}
-                    </span>
-                </div>
-            `;
-        }
-
-        function formatFullDate(timestamp) {
-            return new Date(timestamp * 1000).toLocaleString();
-        }
-
-        function formatRelativeDate(timestamp) {
-            const date = new Date(timestamp * 1000);
-            const now = new Date();
-            const diffTime = Math.abs(now - date);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            if (diffDays < 30) return `${diffDays} days ago`;
-            if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-            return `${Math.floor(diffDays / 365)} years ago`;
-        }
-
-        // Function to filter users based on search
-        function filterUsers(users, searchTerm) {
-            return users.filter(user => 
-                (user.value || user.title).toLowerCase().includes(searchTerm.toLowerCase())
-            );
-        }
-
-        // Function to render user list
-        function renderUserList(users, containerId) {
-            console.log(`Rendering user list for ${containerId}`, users);
-            const container = document.getElementById(containerId);
-            if (!container) {
-                console.error(`Container not found: ${containerId}`);
-                return;
+            try {
+                console.log('Processing data:', data);
+                window.instagramData = data;
+                
+                // Process followers - direct array in followers_1.json
+                const followers = data.followers || [];
+                
+                // Process following - nested in relationships_following
+                const following = data.following?.relationships_following || [];
+                
+                // Process blocked users
+                const blocked = data.blocked?.relationships_blocked_users || [];
+                
+                // Process restricted users
+                const restricted = data.restricted?.relationships_restricted_users || [];
+                
+                // Normalize the data for consistent processing
+                const normalizedFollowers = normalizeUserData(followers);
+                const normalizedFollowing = normalizeUserData(following);
+                const normalizedBlocked = normalizeUserData(blocked);
+                const normalizedRestricted = normalizeUserData(restricted);
+                
+                // Calculate relationships
+                const notFollowingBack = calculateNotFollowingBack(normalizedFollowers, normalizedFollowing);
+                const youDontFollow = calculateYouDontFollow(normalizedFollowers, normalizedFollowing);
+                
+                // Update stats safely
+                updateElementText('followersCount', normalizedFollowers.length);
+                updateElementText('followingCount', normalizedFollowing.length);
+                updateElementText('blockedCount', normalizedBlocked.length);
+                updateElementText('restrictedCount', normalizedRestricted.length);
+                updateElementText('notFollowingBackCount', notFollowingBack.length);
+                updateElementText('youDontFollowCount', youDontFollow.length);
+                
+                // Update section titles to be clearer
+                document.querySelector('#notFollowingBackSection h2').textContent = 'People Who Don\'t Follow You Back';
+                document.querySelector('#youDontFollowSection h2').textContent = 'People Who Follow You But You Don\'t Follow Back';
+                
+                // Render lists
+                renderUserList(normalizedFollowers, 'followersList', 'Followers');
+                renderUserList(normalizedFollowing, 'followingList', 'Following');
+                renderUserList(normalizedBlocked, 'blockedList', 'Blocked Users');
+                renderUserList(normalizedRestricted, 'restrictedList', 'Restricted Users');
+                renderUserList(notFollowingBack, 'notFollowingBackList', 'Not Following Back');
+                renderUserList(youDontFollow, 'youDontFollowList', 'You Don\'t Follow');
+                
+                // Show results
+                document.getElementById('mainContent').style.display = 'block';
+                document.getElementById('uploadSection').style.display = 'none';
+                
+            } catch (error) {
+                console.error('Error processing data:', error);
+                showError(
+                    'Error Processing Data',
+                    'There was a problem processing your Instagram data:',
+                    [
+                        'Make sure you selected JSON format when requesting data',
+                        'Check if the ZIP file contains followers and following data',
+                        'Try downloading your data again from Instagram'
+                    ]
+                );
             }
-            container.innerHTML = users.map(user => createUserItem(user)).join('');
         }
 
-        function updateStats(stats) {
-            console.log('updateStats called with:', stats);
-            Object.entries(stats).forEach(([key, value]) => {
-                const element = document.getElementById(`${key}Count`);
-                if (!element) {
-                    console.error(`Element not found: ${key}Count`);
-                    return;
+        // Helper function to normalize user data from different sources
+        function normalizeUserData(users) {
+            return users.map(user => {
+                try {
+                    // Based on the actual JSON structure we observed
+                    if (user.string_list_data && user.string_list_data.length > 0) {
+                        return {
+                            username: user.string_list_data[0].value || user.title || 'Unknown',
+                            href: user.string_list_data[0].href || '#',
+                            timestamp: user.string_list_data[0].timestamp || null
+                        };
+                    } else if (user.title) {
+                        return {
+                            username: user.title,
+                            href: '#',
+                            timestamp: null
+                        };
+                    } else {
+                        console.warn('Unknown user format:', user);
+                        return {
+                            username: 'Unknown User',
+                            href: '#',
+                            timestamp: null
+                        };
+                    }
+                } catch (e) {
+                    console.error('Error normalizing user:', user, e);
+                    return {
+                        username: 'Error',
+                        href: '#',
+                        timestamp: null
+                    };
                 }
-                element.textContent = value;
             });
         }
 
-        function renderAllLists(data) {
-            renderUserList(data.followers.map(user => user.string_list_data[0]), 'followersList');
-            renderUserList(data.following.map(user => user.string_list_data[0]), 'followingList');
-            renderUserList(data.blocked.map(user => ({
-                href: `https://instagram.com/${user.title}`,
-                value: user.title,
-                timestamp: user.timestamp
-            })), 'blockedList');
-            renderUserList(data.restricted.map(user => ({
-                href: `https://instagram.com/${user.title}`,
-                value: user.title,
-                timestamp: user.timestamp
-            })), 'restrictedList');
-            renderUserList(data.notFollowingBack.map(user => user.string_list_data[0]), 'notFollowingList');
-            renderUserList(data.notFollowedBack.map(user => user.string_list_data[0]), 'notFollowedList');
+        // Helper function to update element text
+        function updateElementText(elementId, value) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = value.toLocaleString();
+            } else {
+                console.warn(`Element with ID ${elementId} not found`);
+            }
         }
 
-        function setupSearchListeners(data) {
-            const searchConfigs = {
-                'followersSearch': data.followers,
-                'followingSearch': data.following,
-                'notFollowingSearch': data.notFollowingBack,
-                'notFollowedSearch': data.notFollowedBack,
-                'blockedSearch': data.blocked,
-                'restrictedSearch': data.restricted
-            };
+        // Helper function to update element label
+        function updateElementLabel(elementId, text) {
+            const element = document.querySelector(`[for="${elementId}"], .${elementId}, #${elementId}`);
+            if (element) {
+                element.textContent = text;
+            }
+        }
 
-            Object.entries(searchConfigs).forEach(([searchId, users]) => {
-                const searchElement = document.getElementById(searchId);
-                if (!searchElement) {
-                    console.warn(`Search element not found: ${searchId}`);
-                    return;
-                }
-                searchElement.addEventListener('input', (e) => {
-                    const filtered = filterUsers(
-                        users.map(user => user.string_list_data ? user.string_list_data[0] : 
-                            { href: user.string_list_data[0].href, value: user.title, timestamp: user.string_list_data[0].timestamp }
-                        ),
-                        e.target.value
-                    );
-                    renderUserList(filtered, searchId.replace('Search', 'List'));
-                });
-            });
+        // Calculate relationships between followers and following
+        function calculateNotFollowingBack(followers, following) {
+            try {
+                const followerUsernames = new Set(followers.map(f => f.username));
+                return following.filter(f => !followerUsernames.has(f.username));
+            } catch (error) {
+                console.error('Error calculating not following back:', error);
+                return [];
+            }
+        }
+
+        function calculateYouDontFollow(followers, following) {
+            try {
+                const followingUsernames = new Set(following.map(f => f.username));
+                return followers.filter(f => !followingUsernames.has(f.username));
+            } catch (error) {
+                console.error('Error calculating you don\'t follow:', error);
+                return [];
+            }
         }
 
         // Network visualization code
+        /* Network visualization code - for future release
         function showNetworkView() {
-            document.getElementById('networkView').style.display = 'block';
-            // Clear any existing SVG
-            d3.select('#networkView svg').remove();
+            // Create a new div for the network view
+            const networkContainer = document.createElement('div');
+            networkContainer.id = 'networkViewContainer';
+            networkContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.9);
+                z-index: 9999;
+                display: none;
+            `;
+
+            // Add close button
+            const closeButton = document.createElement('button');
+            closeButton.innerHTML = '×';
+            closeButton.className = 'network-close-btn';
+            closeButton.onclick = hideNetworkView;
+
+            networkContainer.innerHTML = `
+                <div class="network-content">
+                    <div class="network-legend">
+                        <h3>Network Legend</h3>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background: #E1306C"></span>
+                            <span>You (Center)</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background: #405DE6"></span>
+                            <span>Mutual Connections</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background: #5851DB"></span>
+                            <span>You Follow Them</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background: #833AB4"></span>
+                            <span>They Follow You</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-dot" style="background: #C13584"></span>
+                            <span>Blocked Users</span>
+                        </div>
+                    </div>
+                    <div id="networkGraph"></div>
+                </div>
+            `;
+
+            // Add styles for the network view
+            const styles = `
+                <style>
+                    #networkViewContainer {
+                        opacity: 0;
+                        transition: opacity 0.3s ease;
+                    }
+                    #networkViewContainer.visible {
+                        opacity: 1;
+                    }
+                    .network-content {
+                        width: 100%;
+                        height: 100%;
+                        position: relative;
+                    }
+                    .network-close-btn {
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: none;
+                        border: none;
+                        color: white;
+                        font-size: 32px;
+                        cursor: pointer;
+                        z-index: 10000;
+                        width: 40px;
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 50%;
+                        background: rgba(255,255,255,0.1);
+                        transition: all 0.3s ease;
+                    }
+                    .network-close-btn:hover {
+                        background: rgba(255,255,255,0.2);
+                        transform: scale(1.1);
+                    }
+                    .network-legend {
+                        position: fixed;
+                        top: 20px;
+                        left: 20px;
+                        background: rgba(38, 38, 38, 0.95);
+                        padding: 20px;
+                        border-radius: 12px;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+                        z-index: 10000;
+                    }
+                    .network-legend h3 {
+                        color: white;
+                        margin: 0 0 15px 0;
+                    }
+                    .legend-item {
+                        display: flex;
+                        align-items: center;
+                        margin: 10px 0;
+                        color: white;
+                    }
+                    .color-dot {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 50%;
+                        margin-right: 10px;
+                    }
+                    #networkGraph {
+                        width: 100%;
+                        height: 100%;
+                    }
+                    .node-label {
+                        fill: white;
+                        font-size: 12px;
+                        text-anchor: middle;
+                    }
+                </style>
+            `;
+
+            // Add the network container and styles to the document
+            document.body.insertAdjacentHTML('beforeend', styles);
+            document.body.appendChild(networkContainer);
+            networkContainer.appendChild(closeButton);
+
+            // Show the network view with animation
+            requestAnimationFrame(() => {
+                networkContainer.style.display = 'block';
+                requestAnimationFrame(() => {
+                    networkContainer.classList.add('visible');
+                });
+            });
+
+            // Initialize the network visualization
             initializeNetwork(window.instagramData);
         }
 
         function hideNetworkView() {
-            document.getElementById('networkView').style.display = 'none';
+            const container = document.getElementById('networkViewContainer');
+            if (container) {
+                container.classList.remove('visible');
+                setTimeout(() => {
+                    container.style.display = 'none';
+                    container.remove();
+                }, 300);
+            }
         }
 
         function scrollToSection(sectionId) {
@@ -1584,219 +1899,169 @@
         }
 
         function initializeNetwork(data) {
-            if (!data) {
-                console.error('No data available for network visualization');
-                return;
-            }
-
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const centerNode = { id: 'you', type: 'center' };
-            
-            // Create nodes and links from the data
-            const nodes = [centerNode];
-            const links = [];
-            
-            // Process followers and following
-            const followers = new Set(data.followers.map(f => f.string_list_data[0].value));
-            const following = new Set(data.following.relationships_following.map(f => f.string_list_data[0].value));
-            const blocked = new Set((data.blocked?.relationships_blocked_users || []).map(b => b.title));
-            
-            // Add mutual connections
-            followers.forEach(username => {
-                const type = following.has(username) ? 'mutual' 
-                    : blocked.has(username) ? 'blocked' 
-                    : 'follower';
-                nodes.push({ id: username, type });
-                links.push({ source: username, target: 'you' });
-            });
-            
-            // Add following-only users
-            following.forEach(username => {
-                if (!followers.has(username)) {
-                    nodes.push({ id: username, type: 'following' });
-                    links.push({ source: 'you', target: username });
-                }
-            });
-
-            // Create SVG
-            const svg = d3.select('#networkView')
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height);
-
-            // Create the simulation
-            const simulation = d3.forceSimulation(nodes)
-                .force('link', d3.forceLink(links).id(d => d.id).distance(100))
-                .force('charge', d3.forceManyBody().strength(-300))
-                .force('center', d3.forceCenter(width / 2, height / 2));
-
-            // Create the links
-            const link = svg.append('g')
-                .selectAll('line')
-                .data(links)
-                .join('line')
-                .style('stroke', '#999')
-                .style('stroke-opacity', 0.6)
-                .style('stroke-width', 1);
-
-            // Create the nodes
-            const node = svg.append('g')
-                .selectAll('circle')
-                .data(nodes)
-                .join('circle')
-                .attr('r', d => d.type === 'center' ? 15 : 5)
-                .style('fill', d => {
-                    switch(d.type) {
-                        case 'center': return '#1da1f2';
-                        case 'mutual': return '#4caf50';
-                        case 'following': return '#ff9800';
-                        case 'follower': return '#e91e63';
-                        case 'blocked': return '#f44336';
-                        default: return '#999';
+            try {
+                // Clear any existing visualization
+                const networkGraph = document.getElementById('networkGraph');
+                networkGraph.innerHTML = '';
+                
+                // Get container dimensions
+                const width = networkGraph.clientWidth;
+                const height = networkGraph.clientHeight || window.innerHeight;
+                
+                // Create SVG
+                const svg = d3.select('#networkGraph')
+                    .append('svg')
+                    .attr('width', '100%')
+                    .attr('height', '100%')
+                    .attr('viewBox', [0, 0, width, height]);
+                
+                // Extract and normalize data
+                const normalizedFollowers = normalizeUserData(data.followers || []);
+                const normalizedFollowing = normalizeUserData(data.following?.relationships_following || []);
+                
+                // Create nodes and links
+                const nodes = [];
+                const nodeMap = new Map();
+                const links = [];
+                
+                // Add center node (you)
+                nodes.push({
+                    id: 'you',
+                    name: 'You',
+                    group: 'center'
+                });
+                nodeMap.set('you', 0);
+                
+                // Add follower and following nodes
+                normalizedFollowers.forEach(user => {
+                    if (!nodeMap.has(user.username)) {
+                        nodes.push({
+                            id: user.username,
+                            name: user.username,
+                            group: 'follower'
+                        });
+                        nodeMap.set(user.username, nodes.length - 1);
+                        links.push({
+                            source: user.username,
+                            target: 'you',
+                            type: 'follower'
+                        });
                     }
-                })
-                .call(drag(simulation));
-
-            // Add node click handler
-            node.on('click', (event, d) => {
-                // Update selected node info
-                document.getElementById('selectedNode').textContent = d.id;
-                const details = document.getElementById('nodeDetails');
-                
-                if (d.id === 'you') {
-                    details.innerHTML = `
-                        <p>Your account (center node)</p>
-                        <p>Connected to ${links.filter(l => l.source.id === 'you' || l.target.id === 'you').length} users</p>
-                    `;
-                } else {
-                    const nodeType = d.type;
-                    const connections = links.filter(l => l.source.id === d.id || l.target.id === d.id);
-                    details.innerHTML = `
-                        <p>Username: ${d.id}</p>
-                        <p>Type: ${nodeType.charAt(0).toUpperCase() + nodeType.slice(1)}</p>
-                        <p>Connections: ${connections.length}</p>
-                    `;
-                }
-            });
-
-            // Update legend counts
-            function updateLegendCounts() {
-                document.getElementById('mutualCount').textContent = nodes.filter(n => n.type === 'mutual').length;
-                document.getElementById('followingCount').textContent = nodes.filter(n => n.type === 'following').length;
-                document.getElementById('followerCount').textContent = nodes.filter(n => n.type === 'follower').length;
-                document.getElementById('blockedCount').textContent = nodes.filter(n => n.type === 'blocked').length;
-            }
-            updateLegendCounts();
-
-            // Add reset and center functions
-            window.resetNetworkLayout = () => {
-                simulation.alpha(1).restart();
-                nodes.forEach(node => {
-                    node.fx = null;
-                    node.fy = null;
                 });
-            };
-
-            window.centerNetworkGraph = () => {
-                const centerX = width / 2;
-                const centerY = height / 2;
-                svg.transition()
-                    .duration(750)
-                    .call(zoom.transform, d3.zoomIdentity.translate(centerX, centerY));
-            };
-
-            // Enhanced tooltip
-            const tooltip = d3.select('#networkView')
-                .append('div')
-                .attr('class', 'node-tooltip')
-                .style('opacity', 0);
-
-            node.on('mouseover', (event, d) => {
-                tooltip.transition()
-                    .duration(200)
-                    .style('opacity', .9);
                 
-                const connections = links.filter(l => l.source.id === d.id || l.target.id === d.id);
-                const followingCount = connections.filter(l => l.source.id === d.id).length;
-                const followersCount = connections.filter(l => l.target.id === d.id).length;
-                
-                tooltip.html(`
-                    <strong>${d.id}</strong><br/>
-                    Following: ${followingCount}<br/>
-                    Followers: ${followersCount}
-                `)
-                    .style('left', (event.pageX + 10) + 'px')
-                    .style('top', (event.pageY - 10) + 'px');
-                
-                // Highlight connected nodes
-                node.style('opacity', n => 
-                    n.id === d.id || 
-                    connections.some(l => l.source.id === n.id || l.target.id === n.id) ? 
-                    1 : 0.1
-                );
-                link.style('opacity', l => 
-                    l.source.id === d.id || l.target.id === d.id ? 
-                    1 : 0.1
-                );
-            })
-            .on('mouseout', () => {
-                tooltip.transition()
-                    .duration(500)
-                    .style('opacity', 0);
-                
-                // Reset highlight
-                node.style('opacity', 1);
-                link.style('opacity', 0.6);
-            });
-
-            // Add zoom behavior
-            const zoom = d3.zoom()
-                .scaleExtent([0.1, 2])
-                .on('zoom', (event) => {
-                    svg.selectAll('g').attr('transform', event.transform);
+                normalizedFollowing.forEach(user => {
+                    if (!nodeMap.has(user.username)) {
+                        nodes.push({
+                            id: user.username,
+                            name: user.username,
+                            group: 'following'
+                        });
+                        nodeMap.set(user.username, nodes.length - 1);
+                        links.push({
+                            source: 'you',
+                            target: user.username,
+                            type: 'following'
+                        });
+                    } else {
+                        // Update group for mutual connections
+                        const index = nodeMap.get(user.username);
+                        nodes[index].group = 'mutual';
+                    }
                 });
-
-            svg.call(zoom);
-
-            // Update simulation on each tick
-            simulation.on('tick', () => {
-                link
-                    .attr('x1', d => d.source.x)
-                    .attr('y1', d => d.source.y)
-                    .attr('x2', d => d.target.x)
-                    .attr('y2', d => d.target.y);
-
-                node
-                    .attr('cx', d => d.x)
-                    .attr('cy', d => d.y);
-            });
-
-            // Drag behavior
-            function drag(simulation) {
-                function dragstarted(event) {
+                
+                // Create simulation
+                const simulation = d3.forceSimulation(nodes)
+                    .force('link', d3.forceLink(links).id(d => d.id).distance(100))
+                    .force('charge', d3.forceManyBody().strength(-300))
+                    .force('center', d3.forceCenter(width / 2, height / 2));
+                
+                // Create the links
+                const link = svg.append('g')
+                    .attr('class', 'links')
+                    .selectAll('line')
+                    .data(links)
+                    .join('line')
+                    .attr('stroke', '#999')
+                    .attr('stroke-opacity', 0.6)
+                    .attr('stroke-width', 1);
+                
+                // Create the nodes
+                const node = svg.append('g')
+                    .attr('class', 'nodes')
+                    .selectAll('g')
+                    .data(nodes)
+                    .join('g')
+                    .call(d3.drag()
+                        .on('start', dragstarted)
+                        .on('drag', dragged)
+                        .on('end', dragended));
+                
+                // Add circles for nodes
+                node.append('circle')
+                    .attr('r', d => d.group === 'center' ? 20 : 15)
+                    .attr('fill', d => {
+                        switch(d.group) {
+                            case 'center': return '#E1306C';
+                            case 'mutual': return '#405DE6';
+                            case 'follower': return '#833AB4';
+                            case 'following': return '#5851DB';
+                            default: return '#999';
+                        }
+                    })
+                    .attr('stroke', '#fff')
+                    .attr('stroke-width', 1.5);
+                
+                // Add labels
+                node.append('text')
+                    .attr('class', 'node-label')
+                    .attr('dy', 25)
+                    .attr('text-anchor', 'middle')
+                    .text(d => d.name)
+                    .style('font-size', '10px')
+                    .style('fill', '#ffffff');
+                
+                // Update positions on tick
+                simulation.on('tick', () => {
+                    link
+                        .attr('x1', d => d.source.x)
+                        .attr('y1', d => d.source.y)
+                        .attr('x2', d => d.target.x)
+                        .attr('y2', d => d.target.y);
+                    
+                    node
+                        .attr('transform', d => `translate(${d.x},${d.y})`);
+                });
+                
+                // Drag functions
+                function dragstarted(event, d) {
                     if (!event.active) simulation.alphaTarget(0.3).restart();
-                    event.subject.fx = event.subject.x;
-                    event.subject.fy = event.subject.y;
+                    d.fx = d.x;
+                    d.fy = d.y;
                 }
-
-                function dragged(event) {
-                    event.subject.fx = event.x;
-                    event.subject.fy = event.y;
+                
+                function dragged(event, d) {
+                    d.fx = event.x;
+                    d.fy = event.y;
                 }
-
-                function dragended(event) {
+                
+                function dragended(event, d) {
                     if (!event.active) simulation.alphaTarget(0);
-                    event.subject.fx = null;
-                    event.subject.fy = null;
+                    d.fx = null;
+                    d.fy = null;
                 }
-
-                return d3.drag()
-                    .on('start', dragstarted)
-                    .on('drag', dragged)
-                    .on('end', dragended);
+                
+                // Update legend counts
+                document.getElementById('mutualCount').textContent = nodes.filter(n => n.group === 'mutual').length;
+                document.getElementById('followerCount').textContent = nodes.filter(n => n.group === 'follower').length;
+                document.getElementById('followingCount').textContent = nodes.filter(n => n.group === 'following').length;
+                
+            } catch (error) {
+                console.error('Error creating network visualization:', error);
+                const networkGraph = document.getElementById('networkGraph');
+                networkGraph.innerHTML = '<div style="color: white; text-align: center; padding: 20px;">Error creating network visualization</div>';
             }
         }
+        */
 
         function sortUsers(containerId, sortType, buttonElement) {
             const container = document.getElementById(containerId);
@@ -1810,18 +2075,19 @@
             
             items.sort((a, b) => {
                 const aData = {
-                    name: a.querySelector('.user-link').textContent.trim(),
-                    date: parseInt(a.querySelector('.timestamp').dataset.timestamp)
+                    name: a.querySelector('.user-link')?.textContent.trim() || '',
+                    date: parseInt(a.querySelector('.timestamp')?.dataset?.timestamp || '0')
                 };
                 const bData = {
-                    name: b.querySelector('.user-link').textContent.trim(),
-                    date: parseInt(b.querySelector('.timestamp').dataset.timestamp)
+                    name: b.querySelector('.user-link')?.textContent.trim() || '',
+                    date: parseInt(b.querySelector('.timestamp')?.dataset?.timestamp || '0')
                 };
                 
                 switch(sortType) {
                     case 'newest': return bData.date - aData.date;
                     case 'oldest': return aData.date - bData.date;
                     case 'name': return aData.name.localeCompare(bData.name);
+                    default: return 0;
                 }
             });
             
@@ -1832,8 +2098,113 @@
         function toggleSection(button) {
             const section = button.closest('.section');
             const content = section.querySelector('.section-content');
-            button.classList.toggle('collapsed');
-            content.classList.toggle('collapsed');
+            const isCollapsed = !content.classList.contains('collapsed');
+            
+            if (isCollapsed) {
+                content.classList.add('collapsed');
+                button.classList.add('collapsed');
+                button.setAttribute('aria-expanded', 'false');
+            } else {
+                content.classList.remove('collapsed');
+                button.classList.remove('collapsed');
+                button.setAttribute('aria-expanded', 'true');
+            }
+        }
+
+        // Render user lists with proper error handling
+        function renderUserList(users, containerId, listName) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                log.error(`Container ${containerId} not found`);
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            if (!users || users.length === 0) {
+                container.innerHTML = `<div class="empty-list">No ${listName} found</div>`;
+                return;
+            }
+
+            users.forEach(user => {
+                try {
+                    const listItem = document.createElement('div');
+                    listItem.className = 'user-item';
+                    
+                    const timestamp = user.timestamp ? new Date(user.timestamp * 1000) : null;
+                    const timeAgo = timestamp ? formatTimeAgo(timestamp) : '';
+                    
+                    // Get username for avatar
+                    const username = user.username || 'Unknown User';
+                    const firstLetter = username.charAt(0).toUpperCase();
+                    
+                    listItem.innerHTML = `
+                        <a href="${user.href}" target="_blank" class="user-link">
+                            <div class="user-avatar-placeholder" id="avatar-${username}">
+                                ${firstLetter}
+                            </div>
+                            <span class="user-name">${username}</span>
+                        </a>
+                        ${timestamp ? `<span class="timestamp" data-timestamp="${user.timestamp}">${timeAgo}</span>` : ''}
+                    `;
+                    
+                    container.appendChild(listItem);
+                    
+                    // Try to load the user's avatar
+                    if (username !== 'Unknown User') {
+                        fetchInstagramAvatar(username, `avatar-${username}`);
+                    }
+                } catch (error) {
+                    log.error('Error rendering user:', user, error);
+                }
+            });
+        }
+
+        // Format timestamp to human-readable format
+        function formatTimeAgo(date) {
+            try {
+                const now = new Date();
+                const seconds = Math.floor((now - date) / 1000);
+                const minutes = Math.floor(seconds / 60);
+                const hours = Math.floor(minutes / 60);
+                const days = Math.floor(hours / 24);
+                const months = Math.floor(days / 30);
+                const years = Math.floor(months / 12);
+
+                if (years > 0) return `${years}y ago`;
+                if (months > 0) return `${months}mo ago`;
+                if (days > 0) return `${days}d ago`;
+                if (hours > 0) return `${hours}h ago`;
+                if (minutes > 0) return `${minutes}m ago`;
+                return 'just now';
+            } catch (error) {
+                console.error('Error formatting time:', error);
+                return '';
+            }
+        }
+
+        // Add function to fetch Instagram avatars
+        async function fetchInstagramAvatar(username, elementId) {
+            try {
+                const response = await fetch(`https://www.instagram.com/${username}/?__a=1`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const avatarUrl = data.graphql?.user?.profile_pic_url;
+                    if (avatarUrl) {
+                        const element = document.getElementById(elementId);
+                        if (element) {
+                            const img = document.createElement('img');
+                            img.src = avatarUrl;
+                            img.className = 'user-avatar';
+                            img.alt = `${username}'s avatar`;
+                            element.parentNode.replaceChild(img, element);
+                        }
+                    }
+                }
+            } catch (error) {
+                // Silently fail - keep the placeholder if avatar can't be loaded
+                log.error('Error fetching avatar for', username, error);
+            }
         }
     </script>
 </body>
